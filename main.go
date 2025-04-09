@@ -1,39 +1,41 @@
 package main
 
 import (
-	"image"
-	"os"
+	"log"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
+	"github.com/PiterWeb/LibreRemotePlayNative/views/client"
 )
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Hello World")
+	w := a.NewWindow("LibreRemotePlay")
 	w.Resize(fyne.Size{Width: 1280, Height: 720})
 
-	img, err := getImageFromFilePath("./example.png")
+	clientBtn := widget.NewButton("Client", func() {
 
-	if err != nil {
-		return
-	}
+		log.Println("Btn tapped")
 
-	view := container.NewAdaptiveGrid(1, canvas.NewImageFromImage(img))
+		client.RenderClientView(a,w)
+
+	})
+
+	clientBtn.Alignment = widget.ButtonAlignCenter
+
+	hostBtn := widget.NewButton("Host", func() {
+
+		log.Println("Btn tapped")
+
+	})
+
+	hostBtn.Alignment = widget.ButtonAlignCenter
+
+	view := container.NewGridWithColumns(2, hostBtn, clientBtn)
 
 	w.SetContent(view)
 
 	w.ShowAndRun()
-}
-
-func getImageFromFilePath(filePath string) (image.Image, error) {
-	f, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	image, _, err := image.Decode(f)
-	return image, err
 }
