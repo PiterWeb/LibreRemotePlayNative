@@ -22,6 +22,8 @@ func RenderClientView(a fyne.App, w fyne.Window) {
 		input,
 		widget.NewButton("Save", func() {
 			log.Println("Content was:", input.Text)
+
+			renderClientConnectionView(a, w)
 		}))
 
 	w.SetContent(view)
