@@ -7,6 +7,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/PiterWeb/LibreRemotePlayNative/lib/media"
 	"github.com/PiterWeb/LibreRemotePlayNative/views/client"
 )
 
@@ -19,7 +20,7 @@ func main() {
 
 		log.Println("Btn tapped")
 
-		client.RenderClientView(a,w)
+		client.RenderClientView(a, w)
 
 	})
 
@@ -28,6 +29,7 @@ func main() {
 	hostBtn := widget.NewButton("Host", func() {
 
 		log.Println("Btn tapped")
+		media.PlayMedia()
 
 	})
 
